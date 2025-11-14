@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FetchTheWeather.Backend.Service.Weather.Controllers;
 
-[ApiController, Route("weather/station")]
+[ApiController, Route("ws/weather/station")]
 public class WeatherStationController(IWeatherStationRepository repository) : ControllerBase
 {
     // TODO - Add the following:

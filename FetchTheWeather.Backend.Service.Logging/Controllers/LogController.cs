@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FetchTheWeather.Backend.Service.Logging.Controllers;
 
-[ApiController, Route("logging/logs")]
+[ApiController, Route("ls/logging/logs")]
 public class LogController(ILogRepository repository) : ControllerBase
 {
     [HttpGet("{logId:guid}")]
