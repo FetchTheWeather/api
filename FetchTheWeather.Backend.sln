@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchTheWeather.Backend.Service.Weather", "FetchTheWeather.Backend.Service.Weather\FetchTheWeather.Backend.Service.Weather.csproj", "{44025882-5957-4A5D-81CD-9AA6D0E54111}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchTheWeather.Backend.Service.Gateway", "FetchTheWeather.Backend.Service.Gateway\FetchTheWeather.Backend.Service.Gateway.csproj", "{BC2BBC93-0A52-4C70-916D-1CB5AEE497B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{44025882-5957-4A5D-81CD-9AA6D0E54111}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44025882-5957-4A5D-81CD-9AA6D0E54111}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44025882-5957-4A5D-81CD-9AA6D0E54111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC2BBC93-0A52-4C70-916D-1CB5AEE497B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC2BBC93-0A52-4C70-916D-1CB5AEE497B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC2BBC93-0A52-4C70-916D-1CB5AEE497B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC2BBC93-0A52-4C70-916D-1CB5AEE497B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
