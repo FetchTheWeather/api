@@ -4,17 +4,19 @@ using FetchTheWeather.Backend.Service.Logging.Repositories.Interfaces;
 
 namespace FetchTheWeather.Backend.Service.Logging.Repositories;
 
-public class LogRepository(LogDataContext Context): ILogRepository
+public class LogRepository(LogDataContext context) : ILogRepository
 {
+    // TODO - Use DTOs instead of Domain Models
     public async Task<LogEntry> AddLogEntryAsync(LogEntry logEntry)
     {
-        Context.LogEntries.Add(logEntry);
-        await Context.SaveChangesAsync();
+        context.LogEntries.Add(logEntry);
+        await context.SaveChangesAsync();
+
         return logEntry;
     }
 
     public async Task<LogEntry?> GetLogEntryAsync(Guid logEntry)
     {
-        return await Context.LogEntries.FindAsync(logEntry);
+        return await context.LogEntries.FindAsync(logEntry);
     }
 }
