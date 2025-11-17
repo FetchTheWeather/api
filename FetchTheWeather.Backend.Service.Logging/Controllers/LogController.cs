@@ -1,4 +1,4 @@
-﻿using FetchTheWeather.Backend.Service.Logging.Models.Domain;
+﻿using FetchTheWeather.Backend.Service.Logging.Models.DTO.LogEntry;
 using FetchTheWeather.Backend.Service.Logging.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +11,23 @@ public class LogController(ILogRepository repository) : ControllerBase
     public async Task<IActionResult> GetLogEntryAsync([FromRoute] Guid logId)
     {
         var log = await repository.GetLogEntryAsync(logId);
-        return log is null ? NotFound() : Ok(log);
+        if (log is null) return NotFound();
+
+        var dto = new GetLogEntryDto
+        {
+            Id = log.Id,
+
+            EventType = log.EventType,
+            Description = log.Description,
+
+            TimeStamp = log.TimeStamp,
+        };
+
+        return Ok(dto);
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddLogEntryAsync([FromBody] LogEntry logEntry)
+    public async Task<IActionResult> AddLogEntryAsync([FromBody] CreateLogEntryDto logEntry)
     {
         var log = await repository.AddLogEntryAsync(logEntry);
         return Ok(log);
