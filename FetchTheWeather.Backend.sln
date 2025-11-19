@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchTheWeather.Backend.Ser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FetchTheWeather.Backend.Common", "FetchTheWeather.Backend.Common\FetchTheWeather.Backend.Common.csproj", "{8257A629-E9CF-4ECD-BC0D-68DB1F2BF25A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{AA6BCCF5-C325-4153-8D2D-865F51096A94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,10 @@ Global
 		{8257A629-E9CF-4ECD-BC0D-68DB1F2BF25A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8257A629-E9CF-4ECD-BC0D-68DB1F2BF25A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8257A629-E9CF-4ECD-BC0D-68DB1F2BF25A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BC2BBC93-0A52-4C70-916D-1CB5AEE497B2} = {AA6BCCF5-C325-4153-8D2D-865F51096A94}
+		{1D92CF81-0853-42EB-888C-27875DF34DA1} = {AA6BCCF5-C325-4153-8D2D-865F51096A94}
+		{44025882-5957-4A5D-81CD-9AA6D0E54111} = {AA6BCCF5-C325-4153-8D2D-865F51096A94}
 	EndGlobalSection
 EndGlobal
