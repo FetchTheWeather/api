@@ -1,4 +1,5 @@
 ﻿using FetchTheWeather.Backend.Service.Weather.Data;
+using FetchTheWeather.Backend.Service.Weather.Mappers;
 using FetchTheWeather.Backend.Service.Weather.Models.Domain;
 using FetchTheWeather.Backend.Service.Weather.Models.DTO.WeatherData;
 using FetchTheWeather.Backend.Service.Weather.Repositories.Interfaces;
@@ -10,20 +11,7 @@ public class WeatherDataRepository(WeatherDataContext context) : IWeatherDataRep
 {
     public async Task<WeatherData> CreateWeatherDataAsync(CreateWeatherDataDto data)
     {
-        var weatherData = new WeatherData
-        {
-            WeatherStationId = data.WeatherStationId,
-
-            TemperatureCelsius = data.TemperatureCelsius,
-            AirPressureHpa = data.AirPressureHpa,
-            HumidityPercent = data.HumidityPercent,
-            WindSpeedKph = data.WindSpeedKph,
-
-            IsRaining = data.IsRaining,
-            RainfallMm = data.RainfallMm,
-
-            Timestamp = data.Timestamp
-        };
+        var weatherData = data.ToDomain();
 
         context.WeatherData.Add(weatherData);
         await context.SaveChangesAsync();
