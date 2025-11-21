@@ -1,4 +1,5 @@
-﻿using FetchTheWeather.Backend.Service.Weather.Models.Domain;
+﻿using FetchTheWeather.Backend.Service.Weather.Mappers;
+using FetchTheWeather.Backend.Service.Weather.Models.Domain;
 using FetchTheWeather.Backend.Service.Weather.Models.DTO.WeatherStation;
 using FetchTheWeather.Backend.Service.Weather.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -17,14 +18,14 @@ public class WeatherStationController(IWeatherStationRepository repository) : Co
     public async Task<IActionResult> CreateWeatherStation([FromBody] CreateWeatherStationDto dto)
     {
         var createdStation = await repository.CreateWeatherStationAsync(dto);
-        return CreatedAtAction(nameof(GetWeatherStationById), new { id = createdStation.Id }, ToGetDto(createdStation));
+        return CreatedAtAction(nameof(GetWeatherStationById), new { id = createdStation.Id }, createdStation.ToGetDto());
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAllWeatherStations()
     {
         var data = await repository.GetAllWeatherStationsAsync();
-        var result = data.Select(ToGetDto).ToList();
+        var result = data.Select(weatherStation => weatherStation.ToGetDto());
 
         return Ok(result);
     }
@@ -33,15 +34,6 @@ public class WeatherStationController(IWeatherStationRepository repository) : Co
     public async Task<IActionResult> GetWeatherStationById([FromRoute] Guid id)
     {
         var station = await repository.GetWeatherStationByIdAsync(id);
-        return station is null ? NotFound() : Ok(ToGetDto(station));
+        return station is null ? NotFound() : Ok(station.ToGetDto());
     }
-
-    // We convert the Domain Model to a DTO to avoid exposing internal details
-    // TODO - Move to Extension method
-    private GetWeatherStationDto ToGetDto(WeatherStation createdStation) => new()
-    {
-        Id = createdStation.Id,
-        Name = createdStation.Name,
-        Location = createdStation.Location
-    };
 }

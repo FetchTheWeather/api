@@ -1,4 +1,5 @@
 ﻿using FetchTheWeather.Backend.Service.Weather.Data;
+using FetchTheWeather.Backend.Service.Weather.Mappers;
 using FetchTheWeather.Backend.Service.Weather.Models.Domain;
 using FetchTheWeather.Backend.Service.Weather.Models.DTO.WeatherStation;
 using FetchTheWeather.Backend.Service.Weather.Repositories.Interfaces;
@@ -10,11 +11,7 @@ public class WeatherStationRepository(WeatherDataContext context) : IWeatherStat
 {
     public async Task<WeatherStation> CreateWeatherStationAsync(CreateWeatherStationDto station)
     {
-        var weatherStation = new WeatherStation
-        {
-            Name = station.Name,
-            Location = station.Location
-        };
+        var weatherStation = station.ToDomain();
 
         context.WeatherStations.Add(weatherStation);
         await context.SaveChangesAsync();

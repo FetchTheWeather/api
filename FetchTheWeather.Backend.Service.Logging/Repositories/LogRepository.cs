@@ -1,14 +1,17 @@
 ﻿using FetchTheWeather.Backend.Service.Logging.Data;
+using FetchTheWeather.Backend.Service.Logging.Mappers;
 using FetchTheWeather.Backend.Service.Logging.Models.Domain;
+using FetchTheWeather.Backend.Service.Logging.Models.DTO.LogEntry;
 using FetchTheWeather.Backend.Service.Logging.Repositories.Interfaces;
 
 namespace FetchTheWeather.Backend.Service.Logging.Repositories;
 
 public class LogRepository(LogDataContext context) : ILogRepository
 {
-    // TODO - Use DTOs instead of Domain Models
-    public async Task<LogEntry> AddLogEntryAsync(LogEntry logEntry)
+    public async Task<LogEntry> AddLogEntryAsync(CreateLogEntryDto entry)
     {
+        var logEntry = entry.ToDomain();
+
         context.LogEntries.Add(logEntry);
         await context.SaveChangesAsync();
 

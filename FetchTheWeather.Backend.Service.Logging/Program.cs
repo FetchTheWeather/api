@@ -1,4 +1,5 @@
 using FetchTheWeather.Backend.Service.Logging.Data;
+using FetchTheWeather.Backend.Service.Logging.Options;
 using FetchTheWeather.Backend.Service.Logging.Repositories;
 using FetchTheWeather.Backend.Service.Logging.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -9,12 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
-// TODO - Move to configuration
-var connectionString = $"Server=localhost;" +
-                       $"Port=5450;" +
-                       $"Database=fetchtheweather-logging;" +
-                       $"User Id=ftw_user;" +
-                       $"Password=ftw_password;";
+var databaseOptions = builder.Configuration.GetSection("Database").Get<DatabaseOptions>();
+if (databaseOptions is null) throw new InvalidOperationException("Database options are not configured.");
+
+var connectionString = $"Server={databaseOptions.Host};" +
+                       $"Port={databaseOptions.Port};" +
+                       $"Database={databaseOptions.Database};" +
+                       $"User Id={databaseOptions.User};" +
+                       $"Password={databaseOptions.Password};";
 
 builder.Services.AddDbContext<LogDataContext>(options => options.UseNpgsql(connectionString));
 
