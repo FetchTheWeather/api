@@ -19,6 +19,7 @@ namespace FetchTheWeather.Backend.Service.Weather.Migrations
                     WeatherStationId = table.Column<Guid>(type: "uuid", nullable: false),
                     TemperatureCelsius = table.Column<float>(type: "real", nullable: false),
                     AirPressureHpa = table.Column<float>(type: "real", nullable: false),
+                    AirQualityPpm = table.Column<float>(type: "real", nullable: false),
                     HumidityPercent = table.Column<float>(type: "real", nullable: false),
                     WindSpeedKph = table.Column<float>(type: "real", nullable: false),
                     IsRaining = table.Column<bool>(type: "boolean", nullable: false),

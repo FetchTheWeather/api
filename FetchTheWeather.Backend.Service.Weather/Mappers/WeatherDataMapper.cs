@@ -11,6 +11,7 @@ public static class WeatherDataMapper
 
         TemperatureCelsius = source.TemperatureCelsius,
         AirPressureHpa = source.AirPressureHpa,
+        AirQualityPpm = source.AirQualityPpm,
         HumidityPercent = source.HumidityPercent,
         WindSpeedKph = source.WindSpeedKph,
 
@@ -27,6 +28,7 @@ public static class WeatherDataMapper
 
         TemperatureCelsius = source.TemperatureCelsius,
         AirPressureHpa = source.AirPressureHpa,
+        AirQualityPpm = source.AirQualityPpm,
         HumidityPercent = source.HumidityPercent,
         WindSpeedKph = source.WindSpeedKph,
 

@@ -7,6 +7,7 @@ public class WeatherData
 
     public float TemperatureCelsius { get; set; }
     public float AirPressureHpa { get; set; }
+    public float AirQualityPpm { get; set; }
     public float HumidityPercent { get; set; }
     public float WindSpeedKph { get; set; }
 

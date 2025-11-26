@@ -7,6 +7,7 @@ public class GetWeatherDataDto
 
     public float TemperatureCelsius { get; init; }
     public float AirPressureHpa { get; init; }
+    public float AirQualityPpm { get; init; }
     public float HumidityPercent { get; init; }
     public float WindSpeedKph { get; init; }
 

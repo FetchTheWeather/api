@@ -31,6 +31,9 @@ namespace FetchTheWeather.Backend.Service.Weather.Migrations
                     b.Property<float>("AirPressureHpa")
                         .HasColumnType("real");
 
+                    b.Property<float>("AirQualityPpm")
+                        .HasColumnType("real");
+
                     b.Property<float>("HumidityPercent")
                         .HasColumnType("real");
 
