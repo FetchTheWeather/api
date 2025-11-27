@@ -8,10 +8,6 @@ public class CreateWeatherDataDto
     public float AirPressureHpa { get; init; }
     public float AirQualityPpm { get; init; }
     public float HumidityPercent { get; init; }
-    public float WindSpeedKph { get; init; }
-
-    public bool IsRaining { get; init; }
-    public float RainfallMm { get; init; }
 
     public DateTime Timestamp { get; init; }
 }

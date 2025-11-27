@@ -37,12 +37,6 @@ namespace FetchTheWeather.Backend.Service.Weather.Migrations
                     b.Property<float>("HumidityPercent")
                         .HasColumnType("real");
 
-                    b.Property<bool>("IsRaining")
-                        .HasColumnType("boolean");
-
-                    b.Property<float>("RainfallMm")
-                        .HasColumnType("real");
-
                     b.Property<float>("TemperatureCelsius")
                         .HasColumnType("real");
 
@@ -51,9 +45,6 @@ namespace FetchTheWeather.Backend.Service.Weather.Migrations
 
                     b.Property<Guid>("WeatherStationId")
                         .HasColumnType("uuid");
-
-                    b.Property<float>("WindSpeedKph")
-                        .HasColumnType("real");
 
                     b.HasKey("Id");
 

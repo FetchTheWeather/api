@@ -9,10 +9,6 @@ public class WeatherData
     public float AirPressureHpa { get; set; }
     public float AirQualityPpm { get; set; }
     public float HumidityPercent { get; set; }
-    public float WindSpeedKph { get; set; }
-
-    public bool IsRaining { get; set; }
-    public float RainfallMm { get; set; }
 
     public DateTime Timestamp { get; set; }
 }
