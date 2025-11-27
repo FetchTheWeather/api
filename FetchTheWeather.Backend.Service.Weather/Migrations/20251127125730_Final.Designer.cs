@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FetchTheWeather.Backend.Service.Weather.Migrations
 {
     [DbContext(typeof(WeatherDataContext))]
-    [Migration("20251112133000_Initial")]
-    partial class Initial
+    [Migration("20251127125730_Final")]
+    partial class Final
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,13 +34,10 @@ namespace FetchTheWeather.Backend.Service.Weather.Migrations
                     b.Property<float>("AirPressureHpa")
                         .HasColumnType("real");
 
-                    b.Property<float>("HumidityPercent")
+                    b.Property<float>("AirQualityPpm")
                         .HasColumnType("real");
 
-                    b.Property<bool>("IsRaining")
-                        .HasColumnType("boolean");
-
-                    b.Property<float>("RainfallMm")
+                    b.Property<float>("HumidityPercent")
                         .HasColumnType("real");
 
                     b.Property<float>("TemperatureCelsius")
@@ -51,9 +48,6 @@ namespace FetchTheWeather.Backend.Service.Weather.Migrations
 
                     b.Property<Guid>("WeatherStationId")
                         .HasColumnType("uuid");
-
-                    b.Property<float>("WindSpeedKph")
-                        .HasColumnType("real");
 
                     b.HasKey("Id");
 

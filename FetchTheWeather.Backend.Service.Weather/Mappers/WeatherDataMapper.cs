@@ -11,11 +11,8 @@ public static class WeatherDataMapper
 
         TemperatureCelsius = source.TemperatureCelsius,
         AirPressureHpa = source.AirPressureHpa,
+        AirQualityPpm = source.AirQualityPpm,
         HumidityPercent = source.HumidityPercent,
-        WindSpeedKph = source.WindSpeedKph,
-
-        IsRaining = source.IsRaining,
-        RainfallMm = source.RainfallMm,
 
         Timestamp = source.Timestamp,
     };
@@ -27,11 +24,8 @@ public static class WeatherDataMapper
 
         TemperatureCelsius = source.TemperatureCelsius,
         AirPressureHpa = source.AirPressureHpa,
+        AirQualityPpm = source.AirQualityPpm,
         HumidityPercent = source.HumidityPercent,
-        WindSpeedKph = source.WindSpeedKph,
-
-        IsRaining = source.IsRaining,
-        RainfallMm = source.RainfallMm,
 
         Timestamp = source.Timestamp
     };
