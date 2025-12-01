@@ -8,4 +8,5 @@ public interface IWeatherDataRepository
     Task<WeatherData> CreateWeatherDataAsync(CreateWeatherDataDto data);
     Task<IEnumerable<WeatherData>> GetAllWeatherDataAsync();
     Task<WeatherData?> GetLatestWeatherDataAsync(Guid stationId);
+    Task<IEnumerable<WeatherData>> GetRangeWeatherDataAsync(DateOnly start, DateOnly end);
 }
