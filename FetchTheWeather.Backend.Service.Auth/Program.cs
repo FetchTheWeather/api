@@ -1,0 +1,72 @@
+using System.Text;
+using FetchTheWeather.Backend.Service.Auth.Data;
+using FetchTheWeather.Backend.Service.Auth.Models;
+using FetchTheWeather.Backend.Service.Auth.Options;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Scalar.AspNetCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddOpenApi();
+
+var databaseOptions = builder.Configuration.GetSection("Database").Get<DatabaseOptions>();
+if (databaseOptions is null) throw new InvalidOperationException("Database options are not configured.");
+
+var connectionString = $"Server={databaseOptions.Host};" +
+                       $"Port={databaseOptions.Port};" +
+                       $"Database={databaseOptions.Database};" +
+                       $"User Id={databaseOptions.User};" +
+                       $"Password={databaseOptions.Password};";
+
+builder.Services.AddDbContext<AuthDataContext>(options => options.UseNpgsql(connectionString));
+
+// var identityBuilder = builder.Services.AddIdentityApiEndpoints<FtwUser>();
+// identityBuilder.AddRoles<FtwRole>();
+
+builder.Services.AddIdentityCore<FtwUser>()
+    .AddRoles<FtwRole>()
+    .AddEntityFrameworkStores<AuthDataContext>();
+builder.Services.AddIdentityApiEndpoints<FtwUser>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = true;
+    options.SaveToken = true;
+
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = builder.Configuration["Authentication:Issuer"],
+        ValidAudience = builder.Configuration["Authentication:Audience"],
+        IssuerSigningKey =
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Authentication:SecretKey"])),
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true
+    };
+});
+
+builder.Services.AddAuthorization();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.MapScalarApiReference();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapIdentityApi<FtwUser>();
+app.MapControllers();
+
+app.Run();
+
+// docker run --name fetchtheweather-postgres_auth -e POSTGRES_USER=ftw_user -e POSTGRES_PASSWORD=ftw_password -e POSTGRES_DB=fetchtheweather_auth -p 8001:5432 -d postgres

@@ -25,6 +25,21 @@ builder.Services.AddScoped<IWeatherStationRepository, WeatherStationRepository>(
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<WeatherDataContext>();
+
+    if (!await context.Database.CanConnectAsync())
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError("Database connection failed, check your configuration.");
+
+        return;
+    }
+
+    await context.Database.MigrateAsync();
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
