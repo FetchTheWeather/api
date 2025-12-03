@@ -17,7 +17,6 @@ public static class WeatherDataMapper
         Timestamp = UnixTimeStampToDateTime(source.Timestamp)
     };
 
-
     public static GetWeatherDataDto ToGetDto(this WeatherData source) => new()
     {
         Id = source.Id,
@@ -32,5 +31,5 @@ public static class WeatherDataMapper
     };
 
     private static DateTime UnixTimeStampToDateTime(long unixTimeStamp) =>
-        DateTimeOffset.FromUnixTimeSeconds(unixTimeStamp).LocalDateTime;
+        DateTimeOffset.FromUnixTimeSeconds(unixTimeStamp).UtcDateTime;
 }
