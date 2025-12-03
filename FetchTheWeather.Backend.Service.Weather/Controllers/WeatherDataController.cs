@@ -36,7 +36,7 @@ public class WeatherDataController(IWeatherDataRepository repository) : Controll
         return data is null ? NotFound() : Ok(data.ToGetDto());
     }
 
-    [HttpGet, Route("range/")]
+    [HttpGet, Route("range")]
     public async Task<IActionResult> GetRangeWeatherData([FromQuery]DateOnly start,[FromQuery] DateOnly end)
     {
         var data = await repository.GetRangeWeatherDataAsync(start, end);

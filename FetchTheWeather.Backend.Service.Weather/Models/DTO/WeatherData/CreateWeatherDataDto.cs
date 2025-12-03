@@ -9,5 +9,5 @@ public class CreateWeatherDataDto
     public float AirQualityPpm { get; init; }
     public float HumidityPercent { get; init; }
 
-    public DateTime Timestamp { get; init; }
+    public long Timestamp { get; init; }
 }

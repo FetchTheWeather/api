@@ -14,8 +14,9 @@ public static class WeatherDataMapper
         AirQualityPpm = source.AirQualityPpm,
         HumidityPercent = source.HumidityPercent,
 
-        Timestamp = source.Timestamp,
+        Timestamp = UnixTimeStampToDateTime(source.Timestamp)
     };
+
 
     public static GetWeatherDataDto ToGetDto(this WeatherData source) => new()
     {
@@ -29,4 +30,7 @@ public static class WeatherDataMapper
 
         Timestamp = source.Timestamp
     };
+
+    private static DateTime UnixTimeStampToDateTime(long unixTimeStamp) =>
+        DateTimeOffset.FromUnixTimeSeconds(unixTimeStamp).LocalDateTime;
 }
