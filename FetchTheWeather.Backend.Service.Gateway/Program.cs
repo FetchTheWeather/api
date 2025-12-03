@@ -23,7 +23,7 @@ else
     {
         options.AddDefaultPolicy(corsBuilder =>
         {
-            corsBuilder.WithOrigins("https://pietr.space", "https://ftw.pietr.space")
+            corsBuilder.WithOrigins("http://localhost:3000", "https://pietr.space", "https://ftw.pietr.space")
                 .WithHeaders("Content-Type", "Authorization", "Accept", "Origin", "X-Requested-With",
                     "X-SignalR-User-Agent")
                 .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
