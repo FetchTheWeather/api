@@ -25,12 +25,12 @@ public class WeatherDataRepository(WeatherDataContext context) : IWeatherDataRep
     public async Task<WeatherData?> GetLatestWeatherDataAsync(Guid stationId)
         => await context.WeatherData
             .Where(d => d.WeatherStationId == stationId)
-            .OrderByDescending(d => d.Timestamp)
+            .OrderBy(d => d.Timestamp)
             .FirstOrDefaultAsync();
     
     public async Task<IEnumerable<WeatherData>> GetRangeWeatherDataAsync(DateOnly start, DateOnly end)
         => await context.WeatherData
             .Where (d => DateOnly.FromDateTime(d.Timestamp) >= start && DateOnly.FromDateTime(d.Timestamp) <= end)
-            .OrderByDescending(d => d.Timestamp)
+            .OrderBy(d => d.Timestamp)
             .ToListAsync();
 }
