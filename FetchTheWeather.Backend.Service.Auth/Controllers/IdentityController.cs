@@ -1,4 +1,5 @@
 ﻿using FetchTheWeather.Backend.Service.Auth.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,7 @@ namespace FetchTheWeather.Backend.Service.Auth.Controllers;
 [ApiController, Route("identity")]
 public class IdentityController(SignInManager<FtwUser> signInManager) : ControllerBase
 {
-    [HttpGet("me")]
+    [HttpGet("me"), Authorize]
     public async Task<IActionResult> GetMe()
     {
         var user = await signInManager.UserManager.GetUserAsync(User);
