@@ -48,7 +48,7 @@ namespace FetchTheWeather.Backend.Service.Weather.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WeatherData");
+                    b.ToTable("WeatherData", (string)null);
                 });
 
             modelBuilder.Entity("FetchTheWeather.Backend.Service.Weather.Models.Domain.WeatherStation", b =>
@@ -67,7 +67,7 @@ namespace FetchTheWeather.Backend.Service.Weather.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WeatherStations");
+                    b.ToTable("WeatherStations", (string)null);
                 });
 #pragma warning restore 612, 618
         }

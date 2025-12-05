@@ -27,10 +27,15 @@ public class WeatherDataRepository(WeatherDataContext context) : IWeatherDataRep
             .Where(d => d.WeatherStationId == stationId)
             .OrderBy(d => d.Timestamp)
             .FirstOrDefaultAsync();
-    
+
     public async Task<IEnumerable<WeatherData>> GetRangeWeatherDataAsync(DateOnly start, DateOnly end)
-        => await context.WeatherData
-            .Where (d => DateOnly.FromDateTime(d.Timestamp) >= start && DateOnly.FromDateTime(d.Timestamp) <= end)
+    {
+        var startUtc = start.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
+        var endExclusiveUtc = end.AddDays(1).ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
+
+        return await context.WeatherData
+            .Where(d => d.Timestamp >= startUtc && d.Timestamp < endExclusiveUtc)
             .OrderBy(d => d.Timestamp)
             .ToListAsync();
+    }
 }

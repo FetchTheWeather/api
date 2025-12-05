@@ -1,3 +1,4 @@
+using FetchTheWeather.Backend.Service.Weather;
 using FetchTheWeather.Backend.Service.Weather.Data;
 using FetchTheWeather.Backend.Service.Weather.Options;
 using FetchTheWeather.Backend.Service.Weather.Repositories;
@@ -20,6 +21,7 @@ var connectionString = $"Server={databaseOptions.Host};" +
 
 builder.Services.AddDbContext<WeatherDataContext>(options => options.UseNpgsql(connectionString));
 
+builder.Services.AddScoped<WeatherDataSeeder>();
 builder.Services.AddScoped<IWeatherDataRepository, WeatherDataRepository>();
 builder.Services.AddScoped<IWeatherStationRepository, WeatherStationRepository>();
 
