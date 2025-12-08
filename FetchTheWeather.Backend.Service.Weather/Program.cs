@@ -1,3 +1,4 @@
+using FetchTheWeather.Backend.Service.Weather;
 using FetchTheWeather.Backend.Service.Weather.Data;
 using FetchTheWeather.Backend.Service.Weather.Options;
 using FetchTheWeather.Backend.Service.Weather.Repositories;
@@ -20,8 +21,24 @@ var connectionString = $"Server={databaseOptions.Host};" +
 
 builder.Services.AddDbContext<WeatherDataContext>(options => options.UseNpgsql(connectionString));
 
+builder.Services.AddScoped<WeatherDataSeeder>();
 builder.Services.AddScoped<IWeatherDataRepository, WeatherDataRepository>();
 builder.Services.AddScoped<IWeatherStationRepository, WeatherStationRepository>();
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddCors(options =>
+    {
+        options.AddDefaultPolicy(corsBuilder =>
+        {
+            corsBuilder.WithOrigins("http://localhost:3000")
+                .WithHeaders("Content-Type", "Authorization", "Accept", "Origin", "X-Requested-With",
+                    "X-SignalR-User-Agent")
+                .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .AllowCredentials();
+        });
+    });
+}
 
 var app = builder.Build();
 
@@ -44,6 +61,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference();
+    app.UseCors();
 }
 
 app.MapControllers();
