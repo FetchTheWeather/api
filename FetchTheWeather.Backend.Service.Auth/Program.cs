@@ -23,9 +23,6 @@ var connectionString = $"Server={databaseOptions.Host};" +
 
 builder.Services.AddDbContext<AuthDataContext>(options => options.UseNpgsql(connectionString));
 
-// var identityBuilder = builder.Services.AddIdentityApiEndpoints<FtwUser>();
-// identityBuilder.AddRoles<FtwRole>();
-
 builder.Services.AddIdentityCore<FtwUser>()
     .AddRoles<FtwRole>()
     .AddEntityFrameworkStores<AuthDataContext>();
@@ -33,18 +30,17 @@ builder.Services.AddIdentityApiEndpoints<FtwUser>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
-    options.RequireHttpsMetadata = true;
+    options.RequireHttpsMetadata = false;
     options.SaveToken = true;
 
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidIssuer = builder.Configuration["Authentication:Issuer"],
         ValidAudience = builder.Configuration["Authentication:Audience"],
-        IssuerSigningKey =
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Authentication:SecretKey"])),
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Authentication:SecretKey"])),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = false,
         ValidateIssuerSigningKey = true
     };
 });
@@ -68,6 +64,21 @@ if (builder.Environment.IsDevelopment())
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AuthDataContext>();
+
+    if (!await context.Database.CanConnectAsync())
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError("Database connection failed, check your configuration.");
+
+        return;
+    }
+
+    await context.Database.MigrateAsync();
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -78,7 +89,9 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapIdentityApi<FtwUser>();
+var identityGroup = app.MapGroup("/auth");
+identityGroup.MapIdentityApi<FtwUser>();
+
 app.MapControllers();
 
 app.Run();
